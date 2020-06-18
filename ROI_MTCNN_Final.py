@@ -106,33 +106,33 @@ def output(result, thermal_image):
     if xle - xb < Le / 2: #Left cheek
         rect = cv2.boundingRect(pts_left_cheek)
         x, y, w, h = rect
-        crop_img_left_cheek = thermal_image[y:y + h, x:x + w].copy() #Need to make more changes
+        crop_img_left_cheek = thermal_image[y:y + h, x:x + w].copy() 
     else:
         ylc3 = int(round(xle - Le / 2, 0))
         pts_left_cheek = np.array([[xle, yrc2], [xlm, ylam], [ylc3, ylam], [ylc3, yrc2]], np.int32)
         pts_left_cheek = pts_left_cheek.reshape((-1, 1, 2))
         rect = cv2.boundingRect(pts_left_cheek)
         x, y, w, h = rect
-        crop_img_left_cheek = thermal_image[y:y + h, x:x + w].copy()  # Need to make more changes.
+        crop_img_left_cheek = thermal_image[y:y + h, x:x + w].copy()  
     cheek_left_mean=crop_img_left_cheek.mean()
     d['cheek_left_mean']=cheek_left_mean
     if xb + w - xre < Le / 2:  #Right Cheek
         rect = cv2.boundingRect(pts_right_cheek)
         x, y, w, h = rect
-        crop_img_right_cheek = thermal_image[y:y + h, x:x + w].copy()  # Need to make more changes.
+        crop_img_right_cheek = thermal_image[y:y + h, x:x + w].copy()  
     else:
         yrc3 = int(round(xre + Le / 2, 0))
         pts_right_cheek = np.array([[xre, ylc2], [xrm, yram], [yrc3, yram], [yrc3, ylc2]], np.int32)
         pts_right_cheek = pts_right_cheek.reshape((-1, 1, 2))
         rect = cv2.boundingRect(pts_right_cheek)
         x, y, w, h = rect
-        crop_img_right_cheek = thermal_image[y:y + h, x:x + w].copy()  # Need to make more changes.
+        crop_img_right_cheek = thermal_image[y:y + h, x:x + w].copy()  
     cheek_right_mean = crop_img_right_cheek.mean()
     d['cheek_right_mean'] = cheek_right_mean
     #Forehead
     rect = cv2.boundingRect(pts_forhead)
     x, y, w, h = rect
-    crop_img_forehead = thermal_image[y:y + h, x:x + w].copy()  # Need to make more changes.
+    crop_img_forehead = thermal_image[y:y + h, x:x + w].copy()  
     d['forehead']=crop_img_forehead.mean()
     #cv2.imshow("image", thermal_image)
     cv2.waitKey(0)
@@ -146,6 +146,8 @@ def output(result, thermal_image):
 # temp=flir.get_thermal_np
 # print(temp)
 # DYLD_PRINT-_LIBRARIES=1
+
+
 # To read each file on rgb, thermal to get the intensity values
 i=0
 for filename in glob.glob('Test1/RGB*.jpg'):
@@ -160,7 +162,7 @@ for filename in glob.glob('Test1/RGB*.jpg'):
         thermal_gaussian = cv2.GaussianBlur(thermal_image, (3, 3), 0)
         #median filter
         thermal_median = cv2.medianBlur(thermal_image, 3)
-        image = cv2.imread(filename) #Reding RGB image
+        image = cv2.imread(filename) #Reading RGB image
         #cv2.imshow('image', image) #To show the readed file not needed
         result = detector.detect_faces(image) #Running CNN to detect regions
 
